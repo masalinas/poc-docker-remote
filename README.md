@@ -53,6 +53,9 @@ sudo systemctl restart docker
 docker -H=<REMOTE_DOCKER_IP:2375> ps
 ```
 
+> [!CAUTION]
+> This option not use any TLS conection between host and remote docker server
+
 ## Option 03: usign a custom image
 First we must proxy the Docker API to be access on remote mode\
 
