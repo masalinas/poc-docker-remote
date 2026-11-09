@@ -71,5 +71,8 @@ docker run --name docker-remote-api -d -p 2375:2375 -v /var/run/docker.sock:/var
 docker -H=<REMOTE_DOCKER_IP:2375> ps
 ```
 
+> [!CAUTION]
+> This option not use any TLS conection between host and remote docker server
+
 ## Some links
 [Run commands on remote Docker host](https://gist.github.com/kekru/4e6d49b4290a4eebc7b597c07eaf61f2)
