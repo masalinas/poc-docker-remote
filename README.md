@@ -20,7 +20,7 @@ docker -H=<REMOTE_DOCKER_IP:2375> ps
 ## Some reference links
 [Run commands on remote Docker host](https://gist.github.com/kekru/4e6d49b4290a4eebc7b597c07eaf61f2)
 
-## Secure Methos
+## Secure Method using SSH
 
 Send your public key from your host to the server so that it can recognize you automatically.
 ```shell
