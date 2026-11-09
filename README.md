@@ -3,12 +3,12 @@ PoC execute docker commands on a remote Docker Host from CLI
 
 ## Option 01: Configuring SSH connection
 
-Send your public key from your host to the server so that it can recognize you automatically.
+- Send your public key from your host to the server so that it can recognize you automatically.
 ```shell
 ssh-copy-id USER_REMOTE@DOCKER_REMOTE_SERVER
 ```
 
-Send your docker commands using ssh. You must validate using the USER_REMOTE_PASSWORD:
+- Send your docker commands using ssh. You must validate using the USER_REMOTE_PASSWORD:
 ```shell
 docker -H ssh://USER_REMOTE@DOCKER_REMOTE_SERVER ps
 ```
@@ -39,6 +39,20 @@ Add the following JSON block (if the file already has content, add the "hosts" l
   "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2375"]
 }
 ```
+
+- Reload the system and restart Docker:
+
+```shell
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+- Send your docker commands using tcp.
+
+```shell
+docker -H=<REMOTE_DOCKER_IP:2375> ps
+```
+
 ## Option 03: usign a custom image
 First we must proxy the Docker API to be access on remote mode\
 
@@ -47,14 +61,8 @@ Install this container to offer our docker host API in remote mode:
 ```shell
 docker run --name docker-remote-api -d -p 2375:2375 -v /var/run/docker.sock:/var/run/docker.sock jarkt/docker-remote-api
 ```
-- Reload the system and restart Docker:
 
-```shell
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-```
-## Execute any command from CLI to Remote host
-Execute any docker command. For example see all containers running in our remote docker host:
+- Send your docker commands using tcp.
 
 ```shell
 docker -H=<REMOTE_DOCKER_IP:2375> ps
